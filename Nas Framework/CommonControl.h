@@ -3,6 +3,7 @@
 #include <cassert>
 #include <commctrl.h>
 #include <shlwapi.h> // for common control 
+#include <windowsx.h>
 
 // TODO: Fix. This macro is already defined. Now I'm not quite sure what it does.
 //// Application is compatible with ComCtl32.dll version 5.81 and later.

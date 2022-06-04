@@ -1,4 +1,6 @@
 #include "Window.h"
+#include <windowsx.h>
+#pragma comment(lib, "d2d1")
 
 Window::WindowClass Window::WindowClass::wndClass; // static member definition
 
@@ -98,6 +100,12 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 {
 	switch(msg)
 	{
+		case WM_CREATE:
+			if (FAILED(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory)))
+			{
+				return -1;
+			}
+			break;
 		case WM_CLOSE:
 		PostQuitMessage(0);
 		break;
@@ -121,15 +129,26 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		case WM_RBUTTONDBLCLK:
 		case WM_MOUSEHOVER:
 			break;
+		//case WM_PAINT:
+		//	PAINTSTRUCT ps;
+		//	HDC hdc = BeginPaint(hWnd, &ps);
+		//	HBRUSH hbSolid = CreateSolidBrush(RGB(200, 0, 0));
+		//	HBRUSH hbHatch = CreateHatchBrush(HS_DIAGCROSS, RGB(0, 200, 0));
+		//	FillRect(hdc, &ps.rcPaint, hbHatch);
+		//	EndPaint(hWnd, &ps);
+		//	break;
 		case WM_PAINT:
-			PAINTSTRUCT ps;
-			HDC hdc = BeginPaint(hWnd, &ps);
-			HBRUSH hbSolid = CreateSolidBrush(RGB(200, 0, 0));
-			HBRUSH hbHatch = CreateHatchBrush(HS_DIAGCROSS, RGB(0, 200, 0));
-			FillRect(hdc, &ps.rcPaint, hbHatch);
-			EndPaint(hWnd, &ps);
+			//OnPaint();
 			break;
-		
+		case WM_COMMAND:
+		{
+			wchar_t lpClassName[128];
+			GetClassName((HWND)(lParam), lpClassName, 128);
+			if (lpClassName == L"Button")
+			{
+				Button_SetText(HWND(lParam), L"YO WASSUP");
+			}
+		}
 		/**************** END MOUSE MESSAGES *********************/
 	}
 

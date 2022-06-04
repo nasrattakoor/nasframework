@@ -21,7 +21,7 @@ public:
 				0,
 				L"BUTTON",	// Predefined class; ASCII assumed 
 				text,		// Button text 
-				styles,	// Styles 
+				styles,		// Styles 
 				x,			// x position 
 				y,			// y position 
 				width,		// Button width
@@ -29,7 +29,7 @@ public:
 				parent,		// Parent window
 				nullptr,	// No menu.
 				hInstance,	// Application instance
-				nullptr		// Pointer not needed.
+				this		// Pointer not needed.
 			);
 
 		ShowWindow(hWnd, SW_SHOWDEFAULT);
